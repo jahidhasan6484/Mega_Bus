@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Ticket</title>
+    <title>MEGA CITY BUS</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -39,27 +37,26 @@
         </div>
 
 
-        <div class="booking-form">
+        <div id="booking-form">
             <h3>Explore By Bus</h3>
-
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">From</label>
-                        <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                        <input id="journeyFrom" class="inp-style" type="text" name="" placeholder="Dhaka">
                 </div>
                 <div class="input-group">
                     <label" for="">From</label>
-                        <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                        <input id="journeyTo" class="inp-style" type="text" name="" placeholder="Chittagong">
                 </div>
             </div>
 
             <div class="inputs">
                 <div class="input-group">
-                    <label" for="">Departure</label>
-                        <input class="inp-style" type="date" name="">
+                    <label id="journeyDeparture" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
-                    <label for="">Return</label>
+                    <label id="journeyReturn" for="">Return</label>
                     <input class="inp-style" type="date" name="">
                 </div>
             </div>
@@ -95,7 +92,6 @@
                         <p id="subtotal-amount">$000</p>
                     </div>
                 </div>
-
                 <div class="amount">
                     <div class="left">
                         <p>Charge 10% VAT</p>
@@ -115,6 +111,54 @@
                 </div>
             </div>
             <button id="bookNow" class="btn-style">Book Now</button>
+        </div>
+
+        <div id="booking-details">
+            <h3>Ticket Details</h3>
+            <br>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="strong">Journey From</td>
+                        <td id="ticketJourneyFrom"></td>
+                    </tr>
+                    <tr>
+                        <td class="strong">Journey To</td>
+                        <td id="ticketJourneyTo"></td>
+                    </tr>
+                    <tr>
+                        <td class="strong">First Class</td>
+                        <td id="ticketFirstClass"></td>
+                    </tr>
+                    <tr>
+                        <td class="strong">Economy</td>
+                        <td id="ticketEconomyClass"></td>
+                    </tr>
+                    <tr>
+                        <td class="strong">Total Cost</td>
+                        <td id="ticketTotal"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="row">
+                <div class="col confirm">
+                    <button id="confirmTicket" class="btn-style">Confirm</button>
+                </div>
+                <br>
+                <div class="col cancel">
+                    <button id="cancelTicket" class="btn-style">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div id="confirmTicketAlert">
+            <h2>Thank You!</h2>
+            <br> <br>
+            <p>purchasing of your ticket is successful.</p>
+            <p>Please check your E-mail to collect online ticket.</p>
+            <br><br>
+            <button id="finishButton" class="btn">Finish</button>
+            <br> <br>
         </div>
     </main>
 
@@ -136,7 +180,7 @@
             handleTicketChange('economy', false);
         });
 
-        // function for managing the whole system
+        // Function for ticket control 
         function handleTicketChange(ticket, isIncreasing) {
             const ticketCount = getInputValue(ticket);
             let ticketNewCount = ticketCount;
@@ -174,6 +218,54 @@
             const ticketCount = parseInt(ticketInput.value);
             return ticketCount;
         }
+        const bookNow = document.getElementById('bookNow');
+        bookNow.addEventListener("click", function () {
+            const finalFirstClassTicket = getInputValue('first-class');
+            const finalEconomyTicket = getInputValue('economy');
+
+            if (finalFirstClassTicket == 0 && finalEconomyTicket == 0) {
+                alert("You don't select any ticket!");
+            }
+            else {
+                const bookingDetails = document.getElementById("booking-details");
+                bookingDetails.style.display = "block";
+                const bookingForm = document.getElementById("booking-form");
+                bookingForm.style.display = "none";
+
+                const journeyFrom = document.getElementById("journeyFrom").value;
+                document.getElementById("ticketJourneyFrom").innerText = journeyFrom;
+
+
+                const journeyTo = document.getElementById("journeyTo").value;
+                document.getElementById("ticketJourneyTo").innerText = journeyTo;
+
+                const firstClassCount = document.getElementById("first-class-count").value;
+                document.getElementById("ticketFirstClass").innerText = firstClassCount;
+
+                const economyCount = document.getElementById("economy-count").value;
+                document.getElementById("ticketEconomyClass").innerText = economyCount;
+
+                const ticketTotalAmount = document.getElementById("total-amount").innerText;
+                document.getElementById("ticketTotal").innerText = ticketTotalAmount;
+            }
+        });
+        const cancelTicket = document.getElementById("cancelTicket");
+        cancelTicket.addEventListener("click", function () {
+            document.getElementById("booking-details").style.display = "none";
+            document.getElementById("booking-form").style.display = "block";
+        });
+
+        const confirmTicket = document.getElementById("confirmTicket");
+        confirmTicket.addEventListener("click", function () {
+            document.getElementById("booking-details").style.display = "none";
+            document.getElementById("confirmTicketAlert").style.display = "block";;
+        });
+
+        const finishButton = document.getElementById("finishButton");
+        finishButton.addEventListener("click", function () {
+            document.getElementById("booking-form").style.display = "block";
+            document.getElementById("confirmTicketAlert").style.display = "none";
+        });
 
     </script>
 </body>
