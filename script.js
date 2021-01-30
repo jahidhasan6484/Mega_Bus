@@ -1,18 +1,18 @@
 // Increasing first class ticket
-document.getElementById('first-class-increase').addEventListener('click', function () {
-    handleTicketChange('first-class', true);
+document.getElementById("first-class-increase").addEventListener('click', function () {
+    handleTicketChange("first-class", true);
 });
 // Decreasing first class ticket
-document.getElementById('first-class-decrease').addEventListener('click', function () {
-    handleTicketChange('first-class', false);
+document.getElementById("first-class-decrease").addEventListener('click', function () {
+    handleTicketChange("first-class", false);
 });
 // Increasing economy ticket
-document.getElementById('economy-increase').addEventListener('click', function () {
-    handleTicketChange('economy', true);
+document.getElementById("economy-increase").addEventListener('click', function () {
+    handleTicketChange("economy", true);
 });
 // Decreasing economy ticket
-document.getElementById('economy-decrease').addEventListener('click', function () {
-    handleTicketChange('economy', false);
+document.getElementById("economy-decrease").addEventListener('click', function () {
+    handleTicketChange("economy", false);
 });
 
 // Function for ticket control 
@@ -25,39 +25,39 @@ function handleTicketChange(ticket, isIncreasing) {
     if (isIncreasing == false && ticketCount > 0) {
         ticketNewCount = ticketCount - 1;
     }
-    document.getElementById(ticket + '-count').value = ticketNewCount;
+    document.getElementById(ticket + "-count").value = ticketNewCount;
     calculateTotal();
 }
 
 // calculation of ticket prices
 function calculateTotal() {
-    const firstClassCount = getInputValue('first-class');
-    const economyCount = getInputValue('economy');
+    const firstClassCount = getInputValue("first-class");
+    const economyCount = getInputValue("economy");
 
     // Calculating subtotal
     const subTotal = firstClassCount * 150 + economyCount * 100;
-    document.getElementById('subtotal-amount').innerText = '$' + subTotal;
+    document.getElementById("subtotal-amount").innerText = '$' + subTotal;
 
     // Calculating VAT
     const vat = Math.round(subTotal * 0.1);
-    document.getElementById('vat-amount').innerText = '$' + vat;
+    document.getElementById("vat-amount").innerText = '$' + vat;
 
     // Calculating Total
     const Total = subTotal + vat;
-    document.getElementById('total-amount').innerText = '$' + Total;
+    document.getElementById("total-amount").innerText = '$' + Total;
 }
 
 // calculating the ticket amount
 function getInputValue(ticket) {
-    const ticketInput = document.getElementById(ticket + '-count');
+    const ticketInput = document.getElementById(ticket + "-count");
     const ticketCount = parseInt(ticketInput.value);
     return ticketCount;
 }
 // Book Now button control
-const bookNow = document.getElementById('bookNow');
+const bookNow = document.getElementById("bookNow");
 bookNow.addEventListener("click", function () {
-    const finalFirstClassTicket = getInputValue('first-class');
-    const finalEconomyTicket = getInputValue('economy');
+    const finalFirstClassTicket = getInputValue("first-class");
+    const finalEconomyTicket = getInputValue("economy");
 
     if (finalFirstClassTicket == 0 && finalEconomyTicket == 0) {
         alert("You don't select any ticket!");
